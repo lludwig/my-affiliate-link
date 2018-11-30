@@ -5,7 +5,7 @@
 
 $primary_domain='bizexpert.com';
 
-require_once ( './lib/woopra_tracker.php');
+require_once ( './includes/woopra_tracker.php');
 
 function array_to_http_get($params) {
         $query = '?';
