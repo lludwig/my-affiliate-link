@@ -15,7 +15,6 @@ if (!defined('MY_AFFILATE_LINK_VERSION_NUM'))
 
 // what to do upon installing the plugin
 function my_affiliate_link_install() {
-	products_plugin_rules();
 	// clear the permalinks after the post type has been registered
 	flush_rewrite_rules();
 }
@@ -56,7 +55,7 @@ function affiliate_button ($atts) {
         //print_r(var_dump($atts));
 
         $output='';
-	$output='<div class="btn-center"><a class="ww-btn" href="'.$url. '" target="_blank" rel="nofollow" title="'.$atts['text'].'" onclick="DisplayEmailPopup();">'.$atts['text'].'</a></div>';
+	$output='<div class="btn-center"><a class="button primary" href="'.$url. '" target="_blank" rel="nofollow noopener" title="'.$atts['text'].'" onclick="DisplayEmailPopup();">'.$atts['text'].'</a></div>';
         return($output);
 }
 add_shortcode('affiliate_button','affiliate_button');
@@ -108,33 +107,7 @@ function affiliate_link ($atts,$content=null) {
 	}
 
         $output='';
-        $output='<a href="'.$url.'" target="_blank" rel="nofollow"'.$class.$style.$title.' onclick="DisplayEmailPopup();">'.$content.'</a>';
+        $output='<a href="'.$url.'" target="_blank" rel="nofollow noopener"'.$class.$style.$title.' onclick="DisplayEmailPopup();">'.$content.'</a>';
         return($output);
 }
 add_shortcode('affiliate_link','affiliate_link');
-
-function my_affiliate_link_rules() {
-	add_rewrite_tag('%affiliate%', '(.+)');
-	add_rewrite_rule('^testtest/(.+)/?', 'index.php?myaffiliatelink=redirect&affiliate='.$matches[1], 'top');
- }
- //add rewrite rules in case another plugin flushes rules
- add_action('init', 'my_affiliate_link_rules');
-
-function my_affiliate_link_query_vars($vars) {
-    $vars[] .= 'myaffiliatelink';
-    $vars[] .= 'affiliate';
-    return $vars;
-}
-add_filter('query_vars', 'my_affiliate_link_query_vars');
-
-function my_affiliate_link_parse_request($wp) {
-    // only process requests with "my-plugin=ajax-handler"
-    if (array_key_exists('myaffiliatelink', $wp->query_vars) 
-            && $wp->query_vars['myaffiliatelink'] == 'redirect') {
-
-        // process the request.
-        // For now, we'll just call wp_die, so we know it got processed
-        wp_die('my-plugin ajax-handler!'.$wp->query_vars['affiliate']);
-    }
-}
-add_action('parse_request', 'my_affiliate_link_parse_request');
