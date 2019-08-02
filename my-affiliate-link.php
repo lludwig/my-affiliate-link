@@ -1,7 +1,7 @@
 <?php 
 /**
  * Plugin Name: My Affiliate Link
- * Description: Creates affiliate links with a redirection page.
+ * Description: Creates affiliate links shortcodes for use with a redirection page.
  * Version:     1.0.0
  * Author:      Ludwig Media
  * Author URI:	https://larryludwig.com/
@@ -9,6 +9,8 @@
  */
 
 defined( 'ABSPATH' ) or die( 'Cheatin&#8217; uh?' );
+
+$my_affiliate_link_basepath='/go/';
 
 if (!defined('MY_AFFILATE_LINK_VERSION_NUM'))
 	define('MY_AFFILATE_LINK_VERSION_NUM', '1.0.0');
@@ -33,22 +35,27 @@ function affiliate_button ($atts) {
 	global $post;
 	$defaults = array(
 		'affiliate' => '',
+		'merchant' => '',
 		'child' => '',
 		'text' => 'Sign Up',
 	);
 	$atts = shortcode_atts( $defaults, $atts );
 
-	# if passed a FQDN then only add the child
-	if (preg_match('/^(http|https):\/\//i',$atts['affiliate'])) {
-       		$url = ($atts['affiliate'].'-'.strtolower($atts['child']));
+	if ($atts['merchant'] == '') {
+		$atts['merchant'] = $atts['affiliate'];
 	}
-	# else just the affiliate id
+
+	# if passed a FQDN then only add the child
+	if (preg_match('/^(http|https):\/\//i',$atts['merchant'])) {
+       		$url = ($atts['merchant'].'-'.strtolower($atts['child']));
+	}
+	# else just the merchant id
 	else {
 		if ($atts['child'] != '') {
-			$url = site_url('/go/'.strtolower($atts['affiliate']).'-'.strtolower($atts['child']));
+			$url = site_url($GLOBALS['my_affiliate_link_basepath'].strtolower($atts['merchant']).'-'.strtolower($atts['child']));
 		}
 		else {
-			$url = site_url('/go/'.strtolower($atts['affiliate']));
+			$url = site_url($GLOBALS['my_affiliate_link_basepath'].strtolower($atts['merchant']));
 		}
 	}
 
@@ -67,6 +74,7 @@ function affiliate_link ($atts,$content=null) {
 	$title = '';
 	$defaults = array(
 		'affiliate' => '',
+		'merchant' => '',
 		'child' => '',
 		'text' => 'Sign Up',
 		'class' => '',
@@ -74,6 +82,10 @@ function affiliate_link ($atts,$content=null) {
 		'title' => '',
 	);
 	$atts = shortcode_atts( $defaults, $atts );
+
+	if ($atts['merchant'] == '') {
+		$atts['merchant'] = $atts['affiliate'];
+	}
 
 	// if no content look for the text variable
 	if ($content == '') {
@@ -84,16 +96,16 @@ function affiliate_link ($atts,$content=null) {
 	}
 
 	# if passed a FQDN then only add the child
-	if (preg_match('/^(http|https):\/\//i',$atts['affiliate'])) {
-		$url = ($atts['affiliate']);
+	if (preg_match('/^(http|https):\/\//i',$atts['merchant'])) {
+		$url = ($atts['merchant']);
 	}
-	# else just the affiliate id
+	# else just the merchant id
 	else {
 		if ($atts['child'] != '') {
-			$url = site_url('/go/'.strtolower($atts['affiliate']).'-'.strtolower($atts['child']));
+			$url = site_url($GLOBALS['my_affiliate_link_basepath'].strtolower($atts['merchant']).'-'.strtolower($atts['child']));
 		}
 		else {
-			$url = site_url('/go/'.strtolower($atts['affiliate']));
+			$url = site_url($GLOBALS['my_affiliate_link_basepath'].strtolower($atts['merchant']));
 		}
 	}
 	if ($atts['class'] != '') {
@@ -111,3 +123,53 @@ function affiliate_link ($atts,$content=null) {
         return($output);
 }
 add_shortcode('affiliate_link','affiliate_link');
+
+// amazon affiliate links must you direct and cannot be cloaked
+function amazon_link ($atts, $content=null) {
+	$amazonurl='https://www.amazon.com/exec/obidos/ASIN/';
+	$defaults = array(
+                'tag' => '',
+                'child' => 'default',
+                'text' => 'Buy On Amazon',
+		'class' => '',
+		'style' => '',
+	);
+	$atts = shortcode_atts( $defaults, $atts );
+	// if no content look for the text variable
+	if ($content == '') {
+		$content = $atts['text'];
+	}
+	else {
+		$content = do_shortcode($content);
+	}
+	switch ($atts['child']) {
+		case 'review':
+		case 'reviewlink':
+		case 'reviewimg':
+			$trackingid = 'larryludwigreview-20';
+			break;
+		case 'promo':
+			$trackingid = 'larryludwigpromo-20';
+			break;
+		case 'socialmedia':
+			$trackingid = 'laryludwigsocial-20';
+			break;
+		case 'default':
+		default:
+			$trackingid = 'larryludwig-20';
+       	}
+	if ($atts['class'] != '') {
+		$class=' class="'.$atts['class'].'"';
+	}
+	if ($atts['style'] != '') {
+		$style=' style="'.$atts['style'].'"';
+	}
+	if ($atts['title'] != '') {
+		$title=' title="'.$atts['title'].'"';
+	}
+	$url=$amazonurl.$atts['tag'].'/ref=nosim/'.$trackingid;
+        $output='';
+	$output='<a href="'.$url.'" target="_blank" rel="nofollow noopener"'.$class.$style.$title.' onclick="ActionClick(\'amazon'.$atts['tag'].'\',\''.$atts['child'].'\');">'.$content.'</a>';
+        return($output);
+}
+add_shortcode('amazon_link','amazon_link');
