@@ -1,8 +1,8 @@
 <?php 
 /**
  * Plugin Name: My Affiliate Link
- * Description: Generate affiliate links for use with Clickmeter service via shortcodes.
- * Version:     1.0.3
+ * Description: Generate affiliate links for use with any link cloaking service or plugin via shortcodes.
+ * Version:     1.0.4
  * Author:      Ludwig Media
  * Author URI:	https://larryludwig.com/
  * License:     GNU General Public License v3 or later
@@ -12,7 +12,7 @@
 defined( 'ABSPATH' ) or die( 'Cheatin&#8217; uh?' );
 
 if (!defined('MY_AFFILATE_LINK_VERSION_NUM'))
-	define('MY_AFFILATE_LINK_VERSION_NUM', '1.0.2');
+	define('MY_AFFILATE_LINK_VERSION_NUM', '1.0.4');
 
 if ( ! defined( 'MY_AFFILATE_LINK_PATH' ) ) {
         define( 'MY_AFFILATE_LINK_PATH', plugin_dir_path( __FILE__ ) );
