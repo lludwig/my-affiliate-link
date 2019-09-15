@@ -118,7 +118,7 @@ class My_Affiliate_Link_Admin {
 
         public function nofollow_field() {
 		$output  = '<input name="my-affiliate-link-nofollow" id="my-affiliate-link-nofollow" type="checkbox" value="1" class="code" ' . checked( 1, get_option( 'my-affiliate-link-nofollow' ), false ) . ' />';
-                $output .= ' <small>Link should be rel="nofollow noopener" by default.</small>';
+                $output .= ' <small>Link should be rel="nofollow sponsored noopener" by default.</small>';
                 echo $output;
         }
 

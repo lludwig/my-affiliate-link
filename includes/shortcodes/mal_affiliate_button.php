@@ -77,7 +77,7 @@ function mal_affiliate_button ($atts) {
 	}
 	// don't follow links by default
  	if (get_option('my-affiliate-link-nofollow')) {
-		$rel=' rel="nofollow noopener"';
+		$rel=' rel="nofollow sponsored noopener"';
 	}
 	// add onclick if set
  	if (get_option('my-affiliate-link-onclick') != '') {
