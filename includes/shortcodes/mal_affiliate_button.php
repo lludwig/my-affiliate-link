@@ -9,10 +9,11 @@ function mal_affiliate_button ($atts) {
 		'affiliate' => '',
 		'merchant' => '',
 		'child' => '',
-		'text' => 'Sign Up',
+		'text' => 'Learn More',
 		'class' => '',
 		'style' => '',
 		'title' => '',
+		'encode' => true,
 	);
 	$atts = shortcode_atts( $defaults, $atts );
 
@@ -20,7 +21,12 @@ function mal_affiliate_button ($atts) {
 		$atts['merchant'] = $atts['affiliate'];
 	}
 
-	$content = $atts['text'];
+	if ($atts['encode']) {
+		$content = esc_attr($atts['text']);
+	}
+	else {
+		$content = $atts['text'];
+	}
 
 	// build the URL
 	# if passed a FQDN then only add the child
@@ -92,3 +98,4 @@ function mal_affiliate_button ($atts) {
         return($output);
 }
 add_shortcode('mal_affiliate_button','mal_affiliate_button');
+add_shortcode('mal_button','mal_affiliate_button');

@@ -32,6 +32,9 @@ None.
 
 == Changelog ==
 
+= 1.0.6 =
+ * Added encode option to default true to esc_attr is used for text attribute
+ * shortened the shortcodes to mal_link, mal_button and mal_amazon can be used (and preferred)
 = 1.0.5 =
  * Added default support for Google's rel="sponsored" tag
 = 1.0.4 =

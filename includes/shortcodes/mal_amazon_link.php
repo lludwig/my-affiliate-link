@@ -63,3 +63,4 @@ function mal_amazon_link ($atts, $content=null) {
         return($output);
 }
 add_shortcode('mal_amazon_link','mal_amazon_link');
+add_shortcode('mal_amazon','mal_amazon_link');

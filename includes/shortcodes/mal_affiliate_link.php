@@ -9,7 +9,8 @@ function mal_affiliate_link ($atts, $content=null) {
 	$defaults = array(
 		'merchant' => '',
 		'child' => '',
-		'text' => 'Sign Up',
+		'text' => 'Learn More',
+		'encode' => true,
 		'class' => '',
 		'style' => '',
 		'title' => '',
@@ -18,7 +19,12 @@ function mal_affiliate_link ($atts, $content=null) {
 
 	// if no content look for the text variable
 	if ($content == '') {
-		$contentout = esc_attr($atts['text']);
+		if ($atts['encode']) {
+			$contentout = esc_attr($atts['text']);
+		}
+		else {
+			$contentout = $atts['text'];
+		}
 	}
 	else {
 		$contentout = do_shortcode($content);
@@ -83,8 +89,9 @@ function mal_affiliate_link ($atts, $content=null) {
 	}
 
 	// construct link
-        $output='<a href="'.$url.'"'.$target.$rel.$class.$style.$title.$onclick.'>'.esc_html($contentout).'</a>';
+        $output='<a href="'.$url.'"'.$target.$rel.$class.$style.$title.$onclick.'>'.$contentout.'</a>';
         return($output);
 }
 add_shortcode('mal_affiliate_link','mal_affiliate_link');
+add_shortcode('mal_link','mal_affiliate_link');
 
