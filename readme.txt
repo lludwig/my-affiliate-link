@@ -34,7 +34,6 @@ None.
 
 = 1.0.7 =
  * Added support to allow for different seperator of the child tag. Either '-' or now '/' between merchant and child, which will allow more flexability with services like ClickMeter which allows for '-' in their links.
-
 = 1.0.6 =
  * Added encode option to default true to esc_attr is used for text attribute
  * shortened the shortcodes to mal_link, mal_button and mal_amazon can be used (and preferred)
