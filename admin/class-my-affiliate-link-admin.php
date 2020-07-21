@@ -27,6 +27,7 @@ class My_Affiliate_Link_Admin {
                 add_option( 'my-affiliate-link-nofollow' , true );
                 add_option( 'my-affiliate-link-target' , '_blank' );
                 add_option( 'my-affiliate-link-trailingslash' , false );
+                add_option( 'my-affiliate-link-childsep' , '-' );
                 add_option( 'my-affiliate-link-amazontrackingid' , null );
 
                 // register the option types
@@ -37,6 +38,7 @@ class My_Affiliate_Link_Admin {
                 register_setting( 'my-affiliate-link', 'my-affiliate-link-nofollow', array ('type' => 'string', 'description' => 'Nofollow and noopener links (which should be the default).' ) );
                 register_setting( 'my-affiliate-link', 'my-affiliate-link-target', array ('type' => 'string', 'description' => 'Target what browser window (_blank is default) ' ) );
                 register_setting( 'my-affiliate-link', 'my-affiliate-link-trailingslash', array ('type' => 'string', 'description' => 'Should trailing / be used for local domains? (default is no).' ) );
+                register_setting( 'my-affiliate-link', 'my-affiliate-link-childsep', array ('type' => 'string', 'description' => 'Should the child separator be a \'-\' (dash) or a \'/\' (forward slash). Dash is the default.' ) );
                 register_setting( 'my-affiliate-link', 'my-affiliate-link-amazontrackingid', array ('type' => 'string', 'description' => 'Default Amazon Tracking ID to use for links' ) );
 
                 add_action( 'admin_menu', array( $this, 'admin_menu' ) );
@@ -58,6 +60,7 @@ class My_Affiliate_Link_Admin {
                 add_settings_field( 'my-affiliate-link-siteurl', 'Site URL', array ($this, 'siteurl_field'), 'my-affiliate-link', 'my-affiliate-link-section' );
                 add_settings_field( 'my-affiliate-link-prefix', 'URL prefix', array ($this, 'prefix_field'), 'my-affiliate-link', 'my-affiliate-link-section' );
                 add_settings_field( 'my-affiliate-link-trailingslash', 'Trailing Slash', array ($this, 'trailingslash_field'), 'my-affiliate-link', 'my-affiliate-link-section' );
+                add_settings_field( 'my-affiliate-link-childsep', 'Child Seperator', array ($this, 'childsep_field'), 'my-affiliate-link', 'my-affiliate-link-section' );
                 add_settings_field( 'my-affiliate-link-cssclass', 'CSS Class', array ($this, 'cssclass_field'), 'my-affiliate-link', 'my-affiliate-link-section' );
                 add_settings_field( 'my-affiliate-link-onclick', 'Onclick Function', array ($this, 'onclick_field'), 'my-affiliate-link', 'my-affiliate-link-section' );
                 add_settings_field( 'my-affiliate-link-nofollow', 'rel="nofollow noopener"', array ($this, 'nofollow_field'), 'my-affiliate-link', 'my-affiliate-link-section' );
@@ -125,6 +128,14 @@ class My_Affiliate_Link_Admin {
         public function target_field() {
                 $output  = '<input id="my-affiliate-link-target" type="text" name="my-affiliate-link-target" value="'. get_option('my-affiliate-link-target') .'" size="40">';
                 $output .= ' <small>What browser target should be used? (_blank should be the default).</small>';
+                echo $output;
+        }
+
+        public function childsep_field() {
+		$output  = '<select name="my-affiliate-link-childsep" id="my-affiliate-link-childsep">
+            <option value="-" '.selected( get_option('my-affiliate-link-childsep'), '-', false ).'>-</option>
+            <option value="/" '.selected( get_option('my-affiliate-link-childsep'), '/', false ).'>/</option>
+        </select>';
                 echo $output;
         }
 

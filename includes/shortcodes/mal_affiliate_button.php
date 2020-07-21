@@ -36,7 +36,7 @@ function mal_affiliate_button ($atts) {
 	# else just the merchant id
 	else {
 		if ($atts['child'] != '') {
-			$merchanttag=strtolower(esc_attr($atts['merchant'])).'-'.strtolower(esc_attr($atts['child']));
+			$merchanttag=strtolower(esc_attr($atts['merchant'])).get_option('my-affiliate-link-childsep').strtolower(esc_attr($atts['child']));
 		}
 		else {
 			$merchanttag=strtolower(esc_attr($atts['merchant']));

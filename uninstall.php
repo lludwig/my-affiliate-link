@@ -37,6 +37,7 @@ unregister_setting('my-affiliate-link', 'my-affiliate-link-nofollow');
 unregister_setting('my-affiliate-link', 'my-affiliate-link-target');
 unregister_setting('my-affiliate-link', 'my-affiliate-link-prefix');
 unregister_setting('my-affiliate-link', 'my-affiliate-link-trailingslash');
+unregister_setting('my-affiliate-link', 'my-affiliate-link-childsep');
 // delete the options from the database
 delete_option('my-affiliate-link-class');
 delete_option('my-affiliate-link-onclick');
@@ -44,3 +45,4 @@ delete_option('my-affiliate-link-nofollow');
 delete_option('my-affiliate-link-target');
 delete_option('my-affiliate-link-prefix');
 delete_option('my-affiliate-link-trailingslash');
+delete_option('my-affiliate-link-childsep');
