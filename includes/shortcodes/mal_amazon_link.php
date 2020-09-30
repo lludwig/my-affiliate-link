@@ -5,6 +5,7 @@ function mal_amazon_link ($atts, $content=null) {
                 'asin' => '',
                 'tid' => get_option('my-affiliate-link-amazontrackingid'),
                 'text' => 'Buy On Amazon',
+		'encode' => true,
 		'class' => '',
 		'style' => '',
 	);
@@ -13,8 +14,13 @@ function mal_amazon_link ($atts, $content=null) {
 
 	$atts = shortcode_atts( $defaults, $atts );
 	// if no content look for the text variable
-	if ($content == '') {
-		$content = esc_attr($atts['text']);
+        if ($content == '') {
+                if ($atts['encode']) {
+                        $contentout = esc_attr($atts['text']);
+                }
+                else {
+                        $contentout = $atts['text'];
+                }
 	}
 	else {
 		$content = do_shortcode($content);

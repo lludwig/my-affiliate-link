@@ -14,6 +14,7 @@ function mal_affiliate_button ($atts) {
 		'style' => '',
 		'title' => '',
 		'encode' => true,
+		'onclick' => null,
 	);
 	$atts = shortcode_atts( $defaults, $atts );
 
@@ -85,10 +86,13 @@ function mal_affiliate_button ($atts) {
  	if (get_option('my-affiliate-link-nofollow')) {
 		$rel=' rel="nofollow sponsored noopener"';
 	}
-	// add onclick if set
- 	if (get_option('my-affiliate-link-onclick') != '') {
-		$onclick=' onclick="'.get_option('my-affiliate-link-onclick').'"';
-	}
+        // add onclick if set
+        if ($atts['onclick'] != null ) {
+                $onclick=' onclick="'.$atts['onclick'].'"';
+        }
+        elseif (get_option('my-affiliate-link-onclick') != '' ) {
+                $onclick=' onclick="'.get_option('my-affiliate-link-onclick').'"';
+        }
 
 	// start with blank slate
         $output='';
