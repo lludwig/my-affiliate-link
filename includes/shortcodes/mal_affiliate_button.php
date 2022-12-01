@@ -47,6 +47,9 @@ function mal_affiliate_button ($atts) {
  	if (get_option('my-affiliate-link-trailingslash')) {
 		$trailingslash='/';
 	}
+	else {
+		$trailingslash=null;
+	}
 	// build url
 	$url = get_option('my-affiliate-link-siteurl').get_option('my-affiliate-link-prefix').$merchanttag.$trailingslash;
 
