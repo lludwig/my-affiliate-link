@@ -3,9 +3,9 @@ Contributors: ludwigmedia
 Donate link: http://lud.live/myaffiliatelinkdonate
 Tags: affiliate, link cloaking, clickmeter, affiliate link management, link cloaker
 Requires at least: 4.6
-Tested up to: 5.4
+Tested up to: 6.1
 Stable tag: 4.3
-Requires PHP: 5.2.4
+Requires PHP: 8.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,8 @@ None.
 
 == Changelog ==
 
+= 1.0.8 =
+ * Fixed minor bugs and tested with PHP 8 or higher
 = 1.0.7 =
  * Added support to allow for different seperator of the child tag. Either '-' or now '/' between merchant and child, which will allow more flexability with services like ClickMeter which allows for '-' in their links.
 = 1.0.6 =

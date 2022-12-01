@@ -2,7 +2,7 @@
 /**
  * Plugin Name: My Affiliate Link
  * Description: Generate affiliate links for use with any link cloaking service or plugin via shortcodes.
- * Version:     1.0.7
+ * Version:     1.0.8
  * Author:      Ludwig Media
  * Author URI:	https://larryludwig.com/
  * License:     GNU General Public License v3 or later
