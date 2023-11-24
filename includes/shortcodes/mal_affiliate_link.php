@@ -1,12 +1,17 @@
 <?php 
 // affiliate_link shortcode
 function mal_affiliate_link ($atts, $content=null) {
-	$class = '';
-	$style = '';
-	$title = '';
-        $output='';
+	$output     = '';
+	$url        = '';
+	$target     = '';
+	$rel        = '';
+	$class      = '';
+	$style      = '';
+	$title      = '';
+	$onclick    = '';
+	$contentout = '';
 
-	$defaults = array(
+	$defaults = [
 		'merchant' => '',
 		'child' => '',
 		'text' => 'Learn More',
@@ -15,7 +20,7 @@ function mal_affiliate_link ($atts, $content=null) {
 		'style' => '',
 		'title' => '',
 		'onclick' => null,
-	);
+	];
 	$atts = shortcode_atts( $defaults, $atts );
 
 	// if no content look for the text variable
